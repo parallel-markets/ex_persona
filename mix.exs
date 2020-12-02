@@ -9,7 +9,7 @@ defmodule ExPersona.MixProject do
       app: :ex_persona,
       aliases: aliases(),
       version: @version,
-      elixir: "~> 1.11",
+      elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: "An Elixir client for the Persona (withpersona.com) platform",
