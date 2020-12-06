@@ -3,5 +3,9 @@ defmodule ExPersona do
   Documentation for `ExPersona`.
   """
 
-  def request(req), do: ExPersona.Client.request(req)
+  defdelegate request(req), to: ExPersona.Client
+
+  defdelegate request!(req), to: ExPersona.Client
+
+  defdelegate stream!(req), to: ExPersona.Client.Streamable
 end

@@ -1,20 +1,13 @@
 defmodule ExPersona.Document do
-  alias ExPersona.{Client, Operation, Parsers}
+  alias ExPersona.Client.{Operation, Result}
   alias __MODULE__
 
   defstruct [:data, :id]
 
   def get(id), do: %Operation{path: "documents/#{id}", parser: &Document.parse/1}
 
-  def parse(result) do
-    case Parsers.json(result) do
-      {:ok, %{"data" => data}} ->
-        {:ok, %Document{data: data, id: data["id"]}}
-
-      error ->
-        error
-    end
-  end
+  def parse(%Result{parsed: %{"data" => data}}),
+    do: {:ok, %Document{data: data, id: data["id"]}}
 
   def has_file?(%Document{data: data}, name) do
     !is_nil(get_in(data, ["attributes", name, "url"]))
@@ -23,10 +16,10 @@ defmodule ExPersona.Document do
   def download_file(%Document{data: data}, name) do
     case get_in(data, ["attributes", name, "url"]) do
       nil ->
-        nil
+        {:error, :no_file}
 
       url ->
-        Client.get(url)
+        %Operation{path: url}
     end
   end
 end

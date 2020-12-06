@@ -1,20 +1,15 @@
 defmodule ExPersona.Inquiry do
-  alias ExPersona.{Operation, Parsers}
+  alias ExPersona.Client.{Operation, Parser, Result}
   alias __MODULE__
 
   defstruct [:data, :included, :id]
 
+  def list, do: %Operation{path: "inquiries", parser: Parser.list_parser(&Inquiry.parse/1)}
+
   def get(id), do: %Operation{path: "inquiries/#{id}", parser: &Inquiry.parse/1}
 
-  def parse(result) do
-    case Parsers.json(result) do
-      {:ok, %{"data" => data, "included" => included}} ->
-        {:ok, %Inquiry{data: data, included: included, id: data["id"]}}
-
-      error ->
-        error
-    end
-  end
+  def parse(%Result{parsed: %{"data" => data} = input}),
+    do: {:ok, %Inquiry{data: data, included: Map.get(input, "included", %{}), id: data["id"]}}
 
   def get_document_ids(%Inquiry{data: data}) do
     case get_in(data, ["relationships", "documents", "data"]) do

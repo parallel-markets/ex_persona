@@ -17,7 +17,8 @@ defmodule ExPersona.MixProject do
       source_url: @repo,
       docs: [
         source_ref: "v#{@version}",
-        main: "ExPersona",
+        main: "readme",
+        extras: ["README.md"],
         formatters: ["html"]
       ],
       preferred_cli_env: [test: :test, lint: :test, "ci.test": :test]
