@@ -1,9 +1,20 @@
 defmodule ExPersona.Client.Result do
-  alias ExPersona.Client.Streamable
+  @moduledoc """
+  This module is used to represent the result of an API call.
+
+  It is passed to the parser specified in a given `ExPersona.Client.Operation` and the
+  result is what's returned from an `ExPersona.Client.request/1`.
+  """
+  alias ExPersona.Client.{Operation, Streamable}
   alias __MODULE__
 
   defstruct [:body, :parsed, :operation]
+  @type t :: %__MODULE__{body: binary(), parsed: map() | nil, operation: Operation.t()}
 
+  @doc """
+  Convert the raw results of an API call and turn them into a `ExPersona.Client.Result`.
+  """
+  @spec from_encoded(String.t(), list(), Operation.t()) :: Result.t()
   def from_encoded(body, headers, operation) when is_binary(body) do
     headers
     |> Enum.into(%{})
@@ -17,6 +28,12 @@ defmodule ExPersona.Client.Result do
     end
   end
 
+  @doc """
+  Convert the `ExPersona.Client.Result` of an API call and turn it into a `ExPersona.Client.Streamable`.
+
+  This is used in cases where we expect the result to contain pagination.
+  """
+  @spec to_streamable(Result.t()) :: Streamable.t()
   def to_streamable(%Result{parsed: %{"links" => links}, operation: op}) do
     cursor = extract_cursor(links)
     %Streamable{operation: op, cursor: cursor, closed: is_nil(cursor)}

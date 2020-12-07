@@ -1,10 +1,20 @@
 defmodule ExPersona.Client do
-  alias ExPersona.Client.{Operation, Result}
+  @moduledoc """
+  Make requests to the API.
+
+  The requests are made using `ExPersona.Client.Operation`s.
+  """
+
+  alias ExPersona.Client.{Operation, Parser, Result}
 
   @api_location "https://withpersona.com/api"
   @api_version "v1"
 
-  def request(%Operation{type: :get, path: path, parser: parser} = op, params \\ %{}) do
+  @doc """
+  Call the API with the given `ExPersona.Client.Operation`.
+  """
+  @spec request(Operation.t()) :: Parser.parsed_result()
+  def request(%Operation{type: :get, path: path, parser: parser, params: params} = op) do
     path
     |> make_url()
     |> get([], params)
@@ -17,6 +27,12 @@ defmodule ExPersona.Client do
     end
   end
 
+  @doc """
+  Call the API with the given `ExPersona.Client.Operation`.
+
+  This function throws an error if there was any issue calling the API.
+  """
+  @spec request!(Operation.t()) :: struct()
   def request!(req) do
     case request(req) do
       {:ok, result} ->
@@ -30,7 +46,7 @@ defmodule ExPersona.Client do
     end
   end
 
-  def get(url, headers \\ [], params \\ []) do
+  defp get(url, headers, params) do
     req_headers =
       Keyword.merge(
         [
