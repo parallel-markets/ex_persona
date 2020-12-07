@@ -46,7 +46,12 @@ defmodule ExPersona.Client do
     end
   end
 
-  defp get(url, headers, params) do
+  @doc """
+  Make a GET request to the API at the given URL.
+  """
+  @spec get(String.t(), [{atom(), String.t()}], map()) ::
+          {:ok, binary(), list()} | {:error, String.t()}
+  def get(url, headers, params) do
     req_headers =
       Keyword.merge(
         [
@@ -83,7 +88,7 @@ defmodule ExPersona.Client do
     api_key = Application.get_env(:ex_persona, :api_key)
 
     if is_nil(api_key) do
-      raise RuntimeError, message: "You must configure an :api_key for :persona"
+      raise RuntimeError, message: "You must configure an :api_key for :ex_persona"
     else
       api_key
     end

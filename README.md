@@ -11,7 +11,7 @@ The package can be installed by adding `ex_persona` to your list of dependencies
 ```elixir
 def deps do
   [
-    {:ex_persona, "~> 0.1.0"}
+    {:ex_persona, "~> 0.0"}
   ]
 end
 ```
