@@ -49,7 +49,7 @@ defmodule ExPersona.Client do
   @doc """
   Make a GET request to the API at the given URL.
   """
-  @spec get(String.t(), [{atom(), String.t()}], map()) ::
+  @spec get(String.t(), [{atom(), String.t()}], list()) ::
           {:ok, binary(), list()} | {:error, String.t()}
   def get(url, headers, params) do
     req_headers =

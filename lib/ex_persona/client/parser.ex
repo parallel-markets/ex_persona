@@ -19,7 +19,7 @@ defmodule ExPersona.Client.Parser do
   @typedoc """
   Either a single or list result.
   """
-  @type parsed_result :: parsed_result | parsed_list_result
+  @type parsed_result :: parsed_single_result | parsed_list_result
 
   @type parser_func :: (Result.t() -> parsed_result)
 
