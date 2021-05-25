@@ -1,7 +1,7 @@
 defmodule ExPersona.MixProject do
   use Mix.Project
 
-  @version "0.0.2"
+  @version "0.1.0"
   @repo "https://github.com/parallel-markets/ex_persona"
 
   def project do
@@ -44,10 +44,10 @@ defmodule ExPersona.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :dev},
-      {:httpoison, "~> 1.7"},
-      {:json, "~> 1.2"},
+      {:httpoison, "~> 1.8"},
+      {:jason, "~> 1.2"},
       {:mock, "~> 0.3", only: :test}
     ]
   end
