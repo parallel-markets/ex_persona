@@ -1,4 +1,10 @@
-# Changelog for v0.x
+# Changelog for v1.x and before
+
+## v1.0.0 (2022-04-07)
+
+### Deprecations
+
+  * Moved from `Mix.Config` to `Config` usage
 
 ## v0.1.0 (2021-05-24)
 
