@@ -1,5 +1,11 @@
 # Changelog for v1.x and before
 
+## v1.0.1 (2022-06-15)
+
+### Enhancements
+
+ * Added headers field to ExPersona.Client.Result struct for easier debugging
+
 ## v1.0.0 (2022-04-07)
 
 ### Deprecations

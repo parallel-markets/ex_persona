@@ -8,8 +8,14 @@ defmodule ExPersona.Client.Result do
   alias ExPersona.Client.{Operation, Streamable}
   alias __MODULE__
 
-  defstruct [:body, :parsed, :operation]
-  @type t :: %__MODULE__{body: binary(), parsed: map() | nil, operation: Operation.t()}
+  defstruct [:body, :parsed, :operation, :headers]
+
+  @type t :: %__MODULE__{
+          body: binary(),
+          parsed: map() | nil,
+          operation: Operation.t(),
+          headers: list()
+        }
 
   @doc """
   Convert the raw results of an API call and turn them into a `ExPersona.Client.Result`.
@@ -21,10 +27,10 @@ defmodule ExPersona.Client.Result do
     |> Map.get("Content-Type")
     |> case do
       "application/json" <> _ ->
-        %Result{body: body, parsed: Jason.decode!(body), operation: operation}
+        %Result{body: body, parsed: Jason.decode!(body), operation: operation, headers: headers}
 
       _ ->
-        %Result{body: body, operation: operation}
+        %Result{body: body, operation: operation, headers: headers}
     end
   end
 
