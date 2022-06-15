@@ -1,7 +1,7 @@
 defmodule ExPersona.MixProject do
   use Mix.Project
 
-  @version "1.0.0"
+  @version "1.0.1"
   @repo "https://github.com/parallel-markets/ex_persona"
 
   def project do
