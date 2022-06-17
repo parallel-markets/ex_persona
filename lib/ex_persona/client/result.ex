@@ -23,8 +23,9 @@ defmodule ExPersona.Client.Result do
   @spec from_encoded(String.t(), list(), Operation.t()) :: Result.t()
   def from_encoded(body, headers, operation) when is_binary(body) do
     headers
+    |> Enum.map(fn {k, v} -> {String.downcase(k), v} end)
     |> Enum.into(%{})
-    |> Map.get("Content-Type")
+    |> Map.get("content-type")
     |> case do
       "application/json" <> _ ->
         %Result{body: body, parsed: Jason.decode!(body), operation: operation, headers: headers}
