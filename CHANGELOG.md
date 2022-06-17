@@ -1,5 +1,11 @@
 # Changelog for v1.x and before
 
+## Unreleased
+
+### Enhancements
+
+ * Handle lower-case HTTP response headers from Persona API (#2)
+
 ## v1.0.1 (2022-06-15)
 
 ### Enhancements
